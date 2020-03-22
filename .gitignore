@@ -3,3 +3,4 @@ chromedriver*
 *.pyc
 .vscode
 .idea
+geckodriver*

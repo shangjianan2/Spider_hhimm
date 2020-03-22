@@ -5,10 +5,11 @@ import requests
 class PerPage:
     def __init__(self, url, path='./'):
         self.url = url
-        options=webdriver.ChromeOptions()
-        options.add_argument('--ignore-certificate-errors')
-        options.add_argument('--allow-running-insecure-content')
-        wb=webdriver.Chrome(executable_path="./chromedriver.exe", chrome_options=options)
+        # options=webdriver.ChromeOptions()
+        # options.add_argument('--ignore-certificate-errors')
+        # options.add_argument('--allow-running-insecure-content')
+        # wb=webdriver.Chrome(executable_path="./chromedriver.exe", chrome_options=options)
+        wb=webdriver.Firefox(executable_path="./geckodriver.exe")
         wb.get(url)
         self.wb = wb
         self.path = path
@@ -39,15 +40,16 @@ class PerPage:
         with open(fileName + '.txt', 'wb') as f:
             f.writelines(img_src)
 
-        for i in range(pageIF[0] + 1, pageIF[1] + 1):
-            print('begin download: ' + str(i) + ' page')
+        while pageIF[0] != pageIF[1]:            
             self.NextPage()
 
             uImg_src = self.wb.find_element_by_xpath('//*[@id="iBody"]/img').get_attribute('src')
             img_src = str(uImg_src)
+            print(img_src)
             with open(fileName + '.txt', 'ab') as f:
                 f.writelines('\r\n')
                 f.writelines(img_src)
+            pageIF = self.PageInfo()
         self.wb.close()
         
 
