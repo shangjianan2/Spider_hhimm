@@ -16,7 +16,7 @@ class PerZuoPin:
         hostname = hostnames[0] + '//' + hostnames[2]
         a_elements = self.wb.find_elements_by_xpath('//*[@id="permalink"]/div[4]/ul//a')
         llll = []    
-        for i in range(len(a_elements) - 4, len(a_elements)):
+        for i in range(0, len(a_elements)):
             uHref = a_elements[i].get_attribute('href')
             href = str(uHref)
             sub_url = href
